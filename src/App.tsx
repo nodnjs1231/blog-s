@@ -2,6 +2,8 @@ import { app } from "firebaseApp";
 import { getAuth } from "firebase/auth";
 import Router from './components/Router';
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // getAuth 함수는 app을 넣어줘야 동작합니다.
@@ -15,6 +17,7 @@ function App() {
   
   return (
     <>
+      <ToastContainer />
       <Router isAuthenticated={isAuthenticated}/>
     </>
   );

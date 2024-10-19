@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {app} from "firebaseApp";
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import { toast } from "react-toastify";
 
 interface signFormData {
     email: string;
@@ -22,8 +23,11 @@ export default function SignupForm() {
         try {
             const auth = getAuth(app);
             await createUserWithEmailAndPassword(auth, signData.email, signData.password);
-        } catch (error){
+
+            toast.success("회원가입에 성공했습니다.");
+        } catch (error: any){
             console.log(error);
+            toast.error(error?.code);
         }
     }
 
@@ -53,7 +57,7 @@ export default function SignupForm() {
         if(name == "password_confirm"){
             if(value?.length < 8){
                 setError("비밀번호는 8자리 이상으로 입력해주세요");
-            }else if(signData.password_confirm?.length > 0 && value !== signData.password_confirm){
+            }else if(signData.password?.length > 0 && value !== signData.password){
                 setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요");
             }else{
                 setError("");
