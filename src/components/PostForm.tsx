@@ -15,7 +15,7 @@ export default function PostForm(){
                 <textarea  name="content" id="content" required />
             </div>
             <div className="form__block">
-                <button type="submit" className="form__btn-submit">제출</button>
+                <button type="submit" className="form__btn--submit">제출</button>
             </div>
         </form>
     );

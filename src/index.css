@@ -403,7 +403,7 @@ input:checked + .carousel__slide-container .nav label {
   margin-top: 20px;
 }
 
-.form__btn-submit {
+.form__btn--submit {
   border-radius: 0.3rem;
   border: 1px solid lightgray;
   width: 100%;
@@ -417,7 +417,30 @@ input:checked + .carousel__slide-container .nav label {
   color: white;
 }
 
-.form .form__btn-submit:hover,
-.form .form__btn-submit:focus{
+.form .form__btn--submit:hover,
+.form .form__btn--submit:focus{
   background-color: #1945a4;
+}
+
+/* login form */
+
+.form--lg {
+  min-height: 70vh;
+  margin-top: 10px;
+}
+
+.form__title {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.form__link {
+  margin-left: 10px;
+  text-decoration: none;
+  color: gray;
+}
+
+.form__link:hover,
+.form__link:focus{
+  color: black;
 }
