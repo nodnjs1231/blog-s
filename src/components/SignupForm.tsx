@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {app} from "firebaseApp";
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 import { toast } from "react-toastify";
+import { sign } from "crypto";
 
 interface signFormData {
     email: string;
@@ -19,15 +20,15 @@ export default function SignupForm() {
     });
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
             const auth = getAuth(app);
             await createUserWithEmailAndPassword(auth, signData.email, signData.password);
 
             toast.success("회원가입에 성공했습니다.");
         } catch (error: any){
-            console.log(error);
             toast.error(error?.code);
+            console.log(error);
         }
     }
 
@@ -72,15 +73,15 @@ export default function SignupForm() {
             <h1 className="form__title">회원가입</h1>
             <div className="form__block">
                 <label htmlFor="email">이메일</label>
-                <input type="text" name="email" id="email" required onChange={onChange}/>
+                <input type="text" name="email" id="email" required value={signData.email} onChange={onChange}/>
             </div>
             <div className="form__block">
                 <label htmlFor="password">비밀번호</label>
-                <input type="text" name="password" id="password" required onChange={onChange}/>
+                <input type="password" name="password" id="password" required value={signData.password} onChange={onChange}/>
             </div>
             <div className="form__block">
                 <label htmlFor="password_confirm">비밀번호 확인</label>
-                <input type="text" name="password_confirm" id="password_confirm" required onChange={onChange}/>
+                <input type="password" name="password_confirm" id="password_confirm" required value={signData.password_confirm} onChange={onChange}/>
             </div>
             {error && error?.length > 0 && (
                 <div className="form__block">
