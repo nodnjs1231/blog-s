@@ -1,5 +1,6 @@
 import { initializeApp, FirebaseApp, getApp } from "firebase/app";
 import "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // app 이름으로 지역번수 선언.
 export let app: FirebaseApp;
@@ -24,5 +25,8 @@ try {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);
 
 export default firebase;

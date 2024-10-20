@@ -1,4 +1,4 @@
-import { app } from "firebaseApp";
+import { app, db } from "firebaseApp";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Router from './components/Router';
 import { useEffect, useState } from "react";
@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Loader from "components/Loader";
 
 function App() {
+  console.log(db);
+
   // getAuth 함수는 app을 넣어줘야 동작합니다.
   const auth = getAuth(app); 
 
