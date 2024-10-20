@@ -1,5 +1,7 @@
+import { AuthContext } from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
+import { useContext } from "react";
 import { toast } from "react-toastify";
 
 const onSignOut = async () => {
@@ -14,9 +16,9 @@ const onSignOut = async () => {
 }
 
 export default function Profile(){
-    const auth = getAuth(app);
-    const email = auth?.currentUser?.email;
-    const name = auth?.currentUser?.displayName || "사용자";
+    const { user } = useContext(AuthContext);
+    const email = user?.email;
+    const name = user?.displayName || "사용자";
 
     return(
         <div className="profile__box">
