@@ -8,7 +8,7 @@ import Loader from "./Loader";
 export default function PostDetail(){
     const params = useParams();
     const [post, setPost] = useState<PostProps | null>(null);
-    
+
     const getPost = async (id: string) => {
         if(id){
             const docRef = await doc(db, "posts", id);
@@ -40,7 +40,7 @@ export default function PostDetail(){
                     <div className="post__utils-box">
                         <div className="post__delete" onClick={handleDelete}>삭제</div>
                         <div className="post__edit">
-                            <Link to={`/posts/edit/1`}>수정</Link>
+                            <Link to={`/posts/edit/${post?.id}`}>수정</Link>
                         </div>
                     </div>
                     <div className="post__text post__text--pre-wrap">
