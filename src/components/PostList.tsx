@@ -1,5 +1,5 @@
 import { AuthContext } from "context/AuthContext";
-import { collection, deleteDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 interface PostListProps {
     hasNavigation?: boolean;
+    defaultTab?: TabType;
 }
 
 export interface PostProps {
@@ -22,15 +23,24 @@ export interface PostProps {
 
 type TabType = "all" | "my";
 
-export default function PostList({ hasNavigation = true }: PostListProps){
-    const [activeTab, setActiveTab] = useState<TabType>("all");
+export default function PostList({ hasNavigation = true, defaultTab = "all", }: PostListProps){
+    const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
     const [posts, setPosts] = useState<any[]>([]);
     const { user } = useContext(AuthContext);
 
     const getPosts = async () => {
         setPosts([]); //초기화
         let postsRef = collection(db, 'posts');
-        let postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+        let postsQuery;
+
+        if(activeTab === 'my' && user){
+            //나의 글만 필터링
+            postsQuery = query(postsRef, where('uid', '==', user.uid), orderBy("createdAt", "desc"));
+        } else {
+            // 모든 글 보여주기
+            postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+        }
+
         // const datas = await getDocs(collection(db, "posts"));
         const datas = await getDocs(postsQuery);
         datas?.forEach((doc) => {
@@ -50,7 +60,7 @@ export default function PostList({ hasNavigation = true }: PostListProps){
 
     useEffect(() => {
         getPosts();
-    }, []);
+    }, [activeTab]);
     
     return(
         <>
