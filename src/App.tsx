@@ -1,12 +1,15 @@
 import { app, db } from "firebaseApp";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Router from './components/Router';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "components/Loader";
+import { ThemeContext } from "context/ThemeContext";
 
 function App() {
+  const context = useContext(ThemeContext);
+
   // getAuth 함수는 app을 넣어줘야 동작합니다.
   const auth = getAuth(app); 
 
@@ -31,10 +34,10 @@ function App() {
   },[]);
   
   return (
-    <>
+    <div className={context.theme === "light" ? "white" : "dark"}>
       <ToastContainer />
       {init ? <Router isAuthenticated={isAuthenticated}/> : <Loader />}
-    </>
+    </div>
   );
 }
 
