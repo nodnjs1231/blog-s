@@ -8,8 +8,8 @@ interface PostListProps {
     hasNavigation?: boolean;
 }
 
-interface PostProps {
-    id: string;
+export interface PostProps {
+    id?: string;
     title: string;
     email: string;
     summary: string;
@@ -62,14 +62,14 @@ export default function PostList({ hasNavigation = true }: PostListProps){
                 {posts?.length > 0 ? 
                     posts?.map((post, index) => (
                         <div key={post.id} className="post__box">
-                            <Link to={`/post/${post?.id}`}>
+                            <Link to={`/posts/${post?.id}`}>
                                 <div className="post__profile-box">
                                     <div className="post__profile"></div>
                                     <div className="post__author-name">{post.email}</div>
                                     <div className="post__date">{post?.createAt}</div>
                                 </div>
                                 <div className="post__title">{post?.title}</div>
-                                <div className="post__text">{post?.content}</div>
+                                <div className="post__text">{post?.summary}</div>
                             </Link>
                                 {post?.email === user?.email && (
                                     <div className="post__utils-box">
