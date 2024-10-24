@@ -68,5 +68,10 @@ public/static/
 .env
 .env.*.local
 
+# firebase host
+.firebase/
+firebase.json
+.firebaserc
+
 # Others
 *.lock
